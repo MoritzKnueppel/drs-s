@@ -18,6 +18,18 @@ public function cars_list($group)
 {
     //  $data['cars']   =   $this->car_model->cars_get_by($group);   
     //  Fahrzeugdaten über container im car_list_view ausgeben   
+    // ausgegebene Fahrgestellnummer oder Kennzeichen verlinkt zu car_detail/$id
+}
+
+public function car_detail($id)
+{
+    //  $data['car']        =   $this->car_model->cars_get_detail($id);
+    //  $data['insurance']  =   $this->car_model->insurance_by_car($id);   Versicherungsdaten zu dem Fahrzeug
+    //  $data['client']     =   $this->car_model->client_by_car($id);    Kundenname, Plz, Ort, zu dem Fahrzeug
+    //  $data['docs']       =   $this->car_model->docs_by_car($id); Alle Dokumente zu dem Fahrzeug, group by 'group'   
+    //  Fahrzeugdaten über container im car_detail_view ausgeben 
+    //  Dokumentennamen sind im View Hyperlinks zu 'inbox/doc_detail($id)
+    //  Stammdaten bekommen im View einen edit-icon, der zu stammdaten/edit führt    
 }
 
 } // END CONTROLLER car.php
