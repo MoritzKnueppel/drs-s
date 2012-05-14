@@ -9,10 +9,11 @@ class Basicdata extends CI_Controller {
     $data['view'] = 'basicdata_view';
     $this->load->view('container', $data);
 	}
-  
-  
-  function blog() {
-  $this->load->library('grocery_crud');
+
+//function blog beispielhaft  , am Ende bitte entfernen
+  function blog() 
+  {
+    $this->load->library('grocery_crud');
     $this->grocery_crud->set_theme('datatables');
     $this->grocery_crud->unset_delete();
     $this->grocery_crud->unset_edit(); 
@@ -23,34 +24,45 @@ class Basicdata extends CI_Controller {
     $data['view']='basicdata_view'; 
     $data['grocery_stylesheet']=true; 
     $this->load->vars($data);
-         
     $this->_example_output($output);
   }
-  
-  function insorance() 
-  {
-  
-  }
-  function subcontractor() 
-  {
-  
-  }
-  function subcontractor_type()
-  {
-  
-  }
-  function document_type() 
-  {
-  
-  }
-  function station() 
-  {
-  
-  }
-  function _example_output($output= null)
-    {
 
-       
+// Für die folgenden Stammdaten die jeweilige Tabelle ansprechen. Überschriften überstzen. ID nicht zeigen.
+// Löschen darf nicht zulässig sein. Delete darf gesetzt werden. Zeilen mit delete=1 dürfen nicht angezeigt werden.
+
+function car() 
+  {
+  
+  }
+
+function insurance() 
+  {
+  
+  }
+  
+function subcontractor() 
+  {
+  
+  }
+  
+function subcontractor_type()
+  {
+  
+  }
+
+function document_type() 
+  {
+  
+  }
+
+function station() 
+  {
+  
+  }
+
+function _example_output($output= null)
+    {
         $this->load->view('container', $output);
     }
-}
+
+} // END OF basicdata.php
