@@ -5,7 +5,8 @@ class Preferences extends CI_Controller {
 	public function index()
 	{
     $data['text'] = "Ich bin das Preferences Modul";
-		$this->load->view('preferences_view', $data);
+    $data['view'] = 'preferences_view';
+    $this->load->view('container', $data);
 	}
 }
 

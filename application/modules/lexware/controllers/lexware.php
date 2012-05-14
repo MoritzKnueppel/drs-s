@@ -5,7 +5,8 @@ class Lexware extends CI_Controller {
 		public function index()
 	{
     $data['text'] = "Ich bin das lexware Modul";
-		$this->load->view('lexware_view', $data);
+    $data['view'] = 'lexware_view';
+    $this->load->view('container', $data);
 	}
 }
 

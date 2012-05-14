@@ -5,7 +5,8 @@ class Creditnote extends CI_Controller {
 	public function index()
 	{
     $data['text'] = "Ich bin das Creditnote Modul";
-		$this->load->view('creditnote_view', $data);
+    $data['view'] = 'creditnote_view';
+    $this->load->view('container', $data);
 	}
 }
 

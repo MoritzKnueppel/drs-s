@@ -5,7 +5,8 @@ class Invoice extends CI_Controller {
 	public function index()
 	{
     $data['text'] = "Ich bin das Invoice Modul";
-		$this->load->view('invoice_view', $data);
+      $data['view'] = 'invoice_view';
+    $this->load->view('container', $data);
 	}
 }
 

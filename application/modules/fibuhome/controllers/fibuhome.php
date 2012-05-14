@@ -5,7 +5,9 @@ class Fibuhome extends CI_Controller {
 	public function index()
 	{
     $data['text'] = "Ich bin das Fibuhome Modul";
-		$this->load->view('fibuhome_view', $data);
+    $data['view'] = 'fibuhome_view';
+    $this->load->view('container', $data);
 	}
+ 
 }
 
