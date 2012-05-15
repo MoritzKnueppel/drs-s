@@ -19,29 +19,34 @@ public function index(){
  */
 public function docs_open(){
 	
+	// der defaultwert für das anzuzeigende Dokument
+	if ($this->input->post('id_doc')) {
+		$id_doc = $this->input->post('id_doc');
+	}else {
+		$id_doc = -1;
+	}
+	
 
+	
 	switch ($this->input->post('status')) {
 		case 'save':
-			break;
+			$id_doc     = $this->input->post('id_doc');
+			$id_doctype = $this->input->post('id_doctype');
+				
+			$this->Inbox_model->set_doc($id_doc, $id_doctype);
+			
+			$data['succes'] = 'Wurde gespeichert und nächstes Dokument geöffnet';
+
 		case 'next':
-		default:
-			$id_doc = -1;
-			
-			if ($this->input->post('id_doc')) {
-				$id_doc = $this->input->post('id_doc');
-			};
-			
-			$data['doc'] = $this->Inbox_model->get_doc($id_doc);
-			
-			echo '<pre>';
-				print_r($data['doc']);
-			echo '</pre>';
-			break;
+			//holt alle anderen docs 
+			$id_doc = $this->Inbox_model->get_next_doc($id_doc);
 	}
 	
 	
 	
-		
+	$data['doctype'] = $this->Inbox_model->get_doctype();
+				print_r($id_doc);
+	$data['doc'] = $this->Inbox_model->get_doc($id_doc);
 	
 	$this->load->view('docs_open', $data);
 }   
