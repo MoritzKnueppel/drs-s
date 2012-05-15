@@ -21,10 +21,46 @@ function dummy_array_invoice()
                     'tax'                   => '190',
                     'gross'                 => '1190',
                     'vin'                   => 'A109BC87654321',
-                    'id_client'             => '1'
+                    'id_client'             => '1',
+                    'invoicelines[0]'       =>  array(
+                                                        'pos'       =>  '1',
+                                                        'text'      =>  'Motorhaube',
+                                                        'dent'      =>  '12',
+                                                        'size'      =>  '10',
+                                                        'pre'       =>  '',
+                                                        'alu'       =>  '',
+                                                        'aw_dol'    =>  '14',
+                                                        'aw_ae'     =>  '5',
+                                                        'note'      =>  '',
+                                                        'aw_sum'    =>  '19'),
+                    'invoicelines[1]'       =>  array(
+                                                        'pos'       =>  '2',
+                                                        'text'      =>  'Dach',
+                                                        'dent'      =>  '8',
+                                                        'size'      =>  '10',
+                                                        'pre'       =>  '',
+                                                        'alu'       =>  '',
+                                                        'aw_dol'    =>  '10',
+                                                        'aw_ae'     =>  '20',
+                                                        'note'      =>  '',
+                                                        'aw_sum'    =>  '30'),
                     );
     return $data;
 }
 
+function get_client($id_client)
+{
+    $this->db->where('id_client', $id_client);
+    $sql    =   $this->db->get('client');
+    if($sql->num_row()>0) 
+        {
+            $data = $sql->row();
+        }
+    else 
+        {   
+            $data = NULL;
+        } 
+    return $data;
+}
 }  // END MODEL invoice_model.php
 ?>

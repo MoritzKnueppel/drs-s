@@ -1,6 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Invoice extends CI_Controller {
+class Invoice extends CI_Controller 
+{
+public function __construct()
+       {
+            parent::__construct();
+            $this->load->model('invoice_model');
+       }
 
 public function index()
 {
@@ -17,7 +23,7 @@ public function invoice_new($id_car)
 {
 //  FORM VALIDATION
 //  IF
-//  $data['client'] zum car über invoice_model holen und an view übergeben   
+    $data['client'] = $this->invoice_model->get_client('1');  
 //  $data['insurance'] zum car über invoice_model holen und an view übergeben
 //  $data['car'] zum car über invoice_model holen und an view übergeben
     $data['dummy']  = $this->invoice_model->dummy_array_invoice(); //erstmal damit entspannt View bauen. Später model-functionen erstellen
