@@ -50,8 +50,8 @@ $active_record = TRUE;
 
 
 $db['default']['hostname'] = '127.0.0.1';
-$db['default']['username'] = 'drs';
-$db['default']['password'] = '12345';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'Kdmksdmhn11';
 $db['default']['database'] = 'spring';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
