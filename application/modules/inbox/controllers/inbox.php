@@ -1,8 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Inbox extends CI_Controller {
-	private
-		$id_case;
+
 public function __construct() {
 	parent::__construct();
 	
@@ -18,10 +17,9 @@ public function index(){
 /* 
  * sorts the documents
  */
-public function docs_open($group){
+public function docs_open(){
 	
-	
-	
+
 	switch ($this->input->post('status')) {
 		case 'save':
 			break;
@@ -35,6 +33,9 @@ public function docs_open($group){
 			
 			$data['doc'] = $this->Inbox_model->get_doc($id_doc);
 			
+			echo '<pre>';
+				print_r($data['doc']);
+			echo '</pre>';
 			break;
 	}
 	
