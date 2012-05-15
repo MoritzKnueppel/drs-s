@@ -26,5 +26,19 @@ function dummy_array_invoice()
     return $data;
 }
 
+function get_client($id_client)
+{
+    $this->db->where('id_client', $id_client);
+    $sql    =   $this->db->get('client');
+    if($sql->num_row()>0) 
+        {
+            $data = $sql->row();
+        }
+    else 
+        {   
+            $data = NULL;
+        } 
+    return $data;
+}
 }  // END MODEL invoice_model.php
 ?>
