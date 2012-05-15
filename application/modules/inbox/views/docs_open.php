@@ -1,7 +1,8 @@
 <pre>
 <? print_r($doc); ?>
 <? print_r($doctype); ?>
-<? print_r($car); ?>
+<? print_r($all_car); ?>
+<? isset($car_client) ? print_r($car_client) : '';?>
 </pre>
 
 <? if (isset($succes)) {
@@ -23,13 +24,13 @@
 
 <!--Zuweisung-->
 <?= form_open('Inbox/docs_open'); ?>
-
-
 	<?= form_dropdown('id_doctype', $doctype, ($doc['id_doctype'] != '') ? $doc['id_doctype'] : set_value('id_doctype')); ?>
-	<?= form_dropdown('id_car',     $car,     ($doc['id_car']     != '') ? $doc['id_car']     : set_value('id_car')); ?>
+	<?= form_dropdown('id_car',     $all_car, ($doc['id_car']     != '') ? $doc['id_car']     : set_value('id_car')); ?>
 	
 	<?= form_hidden('status', 'save'); ?>
 	<?= form_hidden('id_doc', $doc['id_doc']); ?>
 	
 	<?= form_submit('submit', 'Speichern'); ?>
 <?= form_close(); ?>
+
+

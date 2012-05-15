@@ -40,7 +40,23 @@ public function docs_open(){
 				$this->Inbox_model->set_doc($id_doc, $id_doctype);
 				$this->Inbox_model->set_car($id_doc, $id_car);
 				
-				$data['succes'] = 'Wurde gespeichert und nächstes Dokument geöffnet';
+				$data['succes'] = 'Wurde gespeichert und n&auml;chstes Dokument ge&ouml;ffnet';
+				
+				/*
+				 * Wenn es ein Gutachten oder eine Kostenübernahme ist
+				 * wird ein weiteres Formular angezeigt
+				 */
+				if ($id_doctype == '10' OR $id_doctype == '1') {
+					redirect('/Inbox/create_car/'.$id_doc, 'refresh');
+				}
+				
+				/*
+				 * Wenn es eine Rechung ist
+				 * wird ein weiteres Formular angezeigt
+				 */
+				if ($id_doctype == '2' OR $id_doctype == '3' OR $id_doctype == '4') {
+					redirect('/Inbox/create_car/'.$id_doc, 'refresh');
+				}
 			}
 
 		case 'next':
@@ -48,16 +64,51 @@ public function docs_open(){
 			$id_doc = $this->Inbox_model->get_next_doc($id_doc);
 	}
 	
-	
 	$data['doctype'] = $this->Inbox_model->get_doctype();
-	$data['car']     = $this->Inbox_model->get_all_car();
+	$data['all_car'] = $this->Inbox_model->get_all_car();
 	$data['doc']     = $this->Inbox_model->get_doc($id_doc);
+	
+
 	
 	$this->load->view('docs_open', $data);
 }   
 
-public function myFunction() {
+/*
+ * Erstellt das Auto anhand des Gutachtens
+ */
+public function create_car($id_doc) {
+
+	$this->form_validation->set_rules('registration_number', 'registration_number', 'required');
+	$this->form_validation->set_rules('first_name',          'first_name',          'required');
+	$this->form_validation->set_rules('last_name',           'last_name',           'required');
+	$this->form_validation->set_rules('street',              'street',              'required');
+	$this->form_validation->set_rules('city',                'city',                'required');
+	$this->form_validation->set_rules('company',             'company',             'required');
+	$this->form_validation->set_rules('vin',                 'vin',                 'required');
+	$this->form_validation->set_rules('zip',                 'zip',                 'required|numeric');
 	
+	
+	if ($this->form_validation->run() == TRUE) {
+		$data['id_car'] = $this->Inbox_model->set_car_client($id_doc, $this->input->post());
+		
+		$data['succes'] = 'Wurde gespeichert';
+		
+		redirect('/Inbox/docs_open/'.$id_doc, 'refresh');
+	}
+	
+	$data['id_doc'] = $id_doc;
+	$data['doc'] = $this->Inbox_model->get_doc($id_doc);
+			
+	$this->load->view('create_car', $data);
+}
+
+public function sort_bill_car($id_doc) {
+	$data['id_doc'] = $id_doc;
+	$data['doc'] = $this->Inbox_model->get_doc($id_doc);
+	
+	
+	
+	$this->load->view('sort_bill_car', $data);
 }
 	
 public function docs_sorter($id){	
@@ -67,5 +118,20 @@ public function docs_sorter($id){
 public function invoice_collector($id){
 	echo "test";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }  // END CONTROLLER  inbox.php

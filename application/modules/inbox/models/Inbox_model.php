@@ -43,7 +43,8 @@ class Inbox_model extends CI_Model  {
 		
 		$this->db->select('
 			car.id_car,
-			car.registration_number
+			car.registration_number,
+			car.vin
 		');
 		$this->db->from('car');
 		$query = $this->db->get();
@@ -51,7 +52,7 @@ class Inbox_model extends CI_Model  {
 		if ($query->num_rows() > 0) {
 			
 			foreach ($query->result() as $item) {
-				$data[$item->id_car] = $item->registration_number;
+				$data[$item->id_car] = isset($item->registration_number) ? $item->registration_number : $item->vin ;
 			}
 			
 		}
@@ -98,8 +99,8 @@ class Inbox_model extends CI_Model  {
 			$data['name']       = $result->name;
 			$data['pdf']        = $result->pdf;
 			$data['mime_type']  = $result->mime_type;
-			$data['id_doctype'] = $result->id_doctype;
-			$data['id_car']     = $result->id_car;
+			$data['id_doctype'] = ($result->id_doctype) ? $result->id_doctype : '-1';
+			$data['id_car']     = ($result->id_car)     ? $result->id_car     : '-1';
 		}
 		
 		return $data;
@@ -158,6 +159,79 @@ class Inbox_model extends CI_Model  {
 		
 		return $data;
 	}
+	
+	function get_car_client($id_car) {
+		$data = array(
+			'registration_number' => '',
+			'first_name'          => '',
+			'last_name'           => '',
+			'street'              => '',
+			'city'                => '',
+			'company'             => '',
+			'vin'                 => '',
+			'zip'                 => '',
+		);
+		
+		$this->db->select('
+			car.registration_number,
+			car.vin,
+			client.first_name,
+			client.last_name,
+			client.street,
+			client.city,
+			client.company,
+			client.zip,
+		');
+		$this->db->from('car');
+		$this->db->join('client','client.id_client = car.id_client','left');
+		$this->db->where('car.id_car', $id_car);
+		$query = $this->db->get();
+		
+		if ($query->num_rows() > 0) {
+			$result = $query->row();
+			
+			$data['registration_number'] = $result->registration_number;
+			$data['first_name']          = $result->first_name;
+			$data['last_name']           = $result->last_name;
+			$data['street']              = $result->street;
+			$data['city']                = $result->city;
+			$data['company']             = $result->company;
+			$data['vin']                 = $result->vin;
+			$data['zip']                 = $result->zip;
+		}
+		
+		return $data;
+	}
+	
+	function set_car_client($id_doc, $car_data) {
+		$data_client = array(
+			'first_name'          => $car_data['first_name'],
+			'last_name'           => $car_data['last_name'],
+			'street'              => $car_data['street'],
+			'city'                => $car_data['city'],
+			'company'             => $car_data['company'],
+			'zip'                 => $car_data['zip'],
+		);
+		$this->db->insert('client', $data_client); 
+		$id_client = $this->db->insert_id();
+		
+		$data_car = array(
+			'registration_number' => $car_data['registration_number'],
+			'vin'                 => $car_data['vin'],
+			'id_client'           => $id_client,
+		);
+		$this->db->insert('car', $data_car); 
+		$id_car = $this->db->insert_id();
+		
+		$data_doc = array(
+			'id_car'              => $id_car,
+		);
+		$this->db->where('id_doc', $id_doc);
+		$this->db->update('doc', $data_doc); 
+		
+		return $id_car;
+	}		
+
 }
 
 
