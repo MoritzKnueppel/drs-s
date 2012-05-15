@@ -15,7 +15,9 @@ Digitale Vorgangsakte mit Rechnungs-/Gutschrifterstellung
 
 
 ###case
-
++ Tabelle case zu car umbenennen!!
++ Spalte billable einbringen
++ SB-Betrag muss erfasst werden
 - timestamp ist `VARCHAR(11)`
 - bekommt die id der `insurance`
 - bekommt die id_client
