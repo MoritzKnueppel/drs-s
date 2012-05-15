@@ -32,8 +32,10 @@ public function docs_open(){
 		case 'save':
 			$id_doc     = $this->input->post('id_doc');
 			$id_doctype = $this->input->post('id_doctype');
+			$id_car     = $this->input->post('id_car');
 				
 			$this->Inbox_model->set_doc($id_doc, $id_doctype);
+			$this->Inbox_model->set_doc($id_doc, $id_car);
 			
 			$data['succes'] = 'Wurde gespeichert und nächstes Dokument geöffnet';
 
@@ -43,10 +45,9 @@ public function docs_open(){
 	}
 	
 	
-	
 	$data['doctype'] = $this->Inbox_model->get_doctype();
-				print_r($id_doc);
-	$data['doc'] = $this->Inbox_model->get_doc($id_doc);
+	$data['car']     = $this->Inbox_model->get_all_car();
+	$data['doc']     = $this->Inbox_model->get_doc($id_doc);
 	
 	$this->load->view('docs_open', $data);
 }   

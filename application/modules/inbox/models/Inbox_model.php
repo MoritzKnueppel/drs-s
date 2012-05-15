@@ -6,6 +6,9 @@ class Inbox_model extends CI_Model  {
 	    parent::__construct();
 	}
 	
+	/*
+	 * Holt alle Typen, die einem Dokument zugeoprdnet werden können
+	 */
 	function get_doctype() {
 		$data = array(
 			/*id_doctype => name,*/
@@ -30,13 +33,46 @@ class Inbox_model extends CI_Model  {
 		return $data;
 	}
 	
+	/*
+	 * holt alle cars die einem dokument zugeordnet werden können
+	 */
+	function get_all_car() {
+		$data = array(
+			/*id_doctype => name,*/
+		);
+		
+		$this->db->select('
+			car.id_car,
+			car.registration_number
+		');
+		$this->db->from('car');
+		$query = $this->db->get();
+		
+		if ($query->num_rows() > 0) {
+			
+			foreach ($query->result() as $item) {
+				$data[$item->id_car] = $item->registration_number;
+			}
+			
+		}
+		
+		return $data;
+	}
+	
+	/*
+	 * holt ein dokument aus der DB
+	 * geordnet nach der ID wird das oberste zurückgegeben
+	 * @param $id_doc : ist das aktuelle dokument, welches nicht noch einmal geholt werden soll
+	 */
 	function get_doc($id_doc=-1) {
+		echo $id_doc;
 		$data = array(
 			'id_doc'     => '',
 			'name'       => '',
 			'pdf'        => '',
 			'mime_type'  => '',
 			'id_doctype' => '',
+			'id_car'     => '',
 		);
 		
 		$this->db->select('
@@ -44,14 +80,14 @@ class Inbox_model extends CI_Model  {
 			doc.name,
 			doc.pdf,
 			doc.mime_type,
-			doc.id_doctype
+			doc.id_doctype,
+			doc.id_car
 		');
 		$this->db->from('doc');
 		if ($id_doc != -1) {
 			$this->db->where('doc.id_doc', $id_doc);
 		}
 		$this->db->where('doc.deleted', 0);
-		$this->db->where('doc.id_doctype', NULL);
 		$this->db->order_by('doc.id_doc asc');
 		$query = $this->db->get();
 		
@@ -63,6 +99,7 @@ class Inbox_model extends CI_Model  {
 			$data['pdf']        = $result->pdf;
 			$data['mime_type']  = $result->mime_type;
 			$data['id_doctype'] = $result->id_doctype;
+			$data['id_car']     = $result->id_car;
 		}
 		
 		return $data;
@@ -76,9 +113,20 @@ class Inbox_model extends CI_Model  {
 		$this->db->where('id_doc', $id_doc);
 		$this->db->update('doc', $data); 
 	}
+	
+	function set_car($id_doc, $id_car) {
+		$data = array(
+			'id_car' => $id_car,
+		);
+		
+		$this->db->where('id_doc', $id_doc);
+		$this->db->update('doc', $data); 
+	}
+	
 	/*
 	 * holt alle docs bist auf das übergebene
 	 * @param $id_doc : id des Dokumentes, welches nicht geholt werden soll
+	 * @return $id_doc
 	 */
 	function get_next_doc($id_doc = -1) {
 		$data = -1;
@@ -90,7 +138,7 @@ class Inbox_model extends CI_Model  {
 		$this->db->where('doc.deleted', 0);
 		$this->db->where('doc.id_doc !=', $id_doc);
 		$this->db->where('doc.id_doc >', $id_doc);
-		$this->db->where('doc.id_doctype', NULL);
+		$this->db->where('(doc.id_car IS NULL OR doc.id_doctype IS NULL)');
 		$this->db->order_by('doc.id_doc asc');
 		$query = $this->db->get();
 		

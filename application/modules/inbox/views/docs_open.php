@@ -1,6 +1,7 @@
 <pre>
 <? print_r($doc); ?>
 <? print_r($doctype); ?>
+<? print_r($car); ?>
 </pre>
 
 
@@ -22,6 +23,7 @@
 
 
 	<?= form_dropdown('id_doctype', $doctype); ?>
+	<?= form_dropdown('id_car', $car); ?>
 	
 	<?= form_hidden('status', 'save'); ?>
 	<?= form_hidden('id_doc', $doc['id_doc']); ?>
