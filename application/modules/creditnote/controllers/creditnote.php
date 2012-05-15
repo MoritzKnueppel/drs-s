@@ -11,7 +11,7 @@ public function __construct()
 public function index()
 	{
     $data['title'] = "Start Gutschriften";
-    $data['view'] = 'creditnote_view';
+    $data['view'] = 'creditnote_form_view';
     $this->load->view('container', $data);
 	}
 

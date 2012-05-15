@@ -117,14 +117,14 @@ function doctype()
     $this->grocery_crud->unset_columns('deleted');
     
     //translation of field titles
-<<<<<<< HEAD
+/* <<<<<<< HEAD */
     $this->grocery_crud->display_as('group', 'Gruppe');
     $this->grocery_crud->display_as('name', 'Name');
      //end
     
     $this->grocery_crud->where('deleted', 'inactive');
     
-=======
+/* ======= */
     $this->grocery_crud->display_as('name', 'Name');
     $this->grocery_crud->display_as('street', 'Straße und Hausnummer');
     $this->grocery_crud->display_as('zip', 'PLZ');
@@ -135,16 +135,16 @@ function doctype()
     
     $this->grocery_crud->where('deleted', 'inactive');
   
->>>>>>> 320c0f0b8e1e3680d5636b138d790922b1afc624
+/* >>>>>>> 320c0f0b8e1e3680d5636b138d790922b1afc624 */
     $output = $this->grocery_crud->render('doctype');
     $data['view']='basicdata_view'; 
     $data['grocery_stylesheet']=true; 
     $this->load->vars($data);
-<<<<<<< HEAD
+/* <<<<<<< HEAD */
     $this->_example_output($output);
-=======
+/* ======= */
     $this->_example_output($output);  
->>>>>>> 320c0f0b8e1e3680d5636b138d790922b1afc624
+/* >>>>>>> 320c0f0b8e1e3680d5636b138d790922b1afc624 */
   }
 
 function station() 
