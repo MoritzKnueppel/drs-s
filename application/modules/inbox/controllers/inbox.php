@@ -1,31 +1,56 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Inbox extends CI_Controller {
+	private
+		$id_case;
+public function __construct() {
+	parent::__construct();
+	
+	$this->load->model('Inbox_model', null, true);
+}
 
-public function index()
-	{
-//  $data['docs_unsort']    =   $this->inbox_model->docs_unsort_count();  Menge Dokumente ohne Eintrag bei Typ
-//  $data['docs_uncleared'] =   $this->inbox_model->docs_uncleared();  menge Dokumente ohne Eintrag Case/Car
-//  $data['invoices']       =   $this->inbox_model->invoices_uncleared(); Menge Docs Typ Invoice ohne Aufteilung
-//  $data an Inbox_view geben.  Menge linkt ebenso wie ein anchor daneben auf Detailliste docs_open/$group
+public function index(){
     $data['text'] = "Ich bin das Inbox Modul";
     $data['view'] = 'inbox_view';
     $this->load->view('container', $data);
+}
+
+/* 
+ * sorts the documents
+ */
+public function docs_open($group){
+	
+	
+	
+	switch ($this->input->post('status')) {
+		case 'save':
+			break;
+		case 'next':
+		default:
+			$id_doc = -1;
+			
+			if ($this->input->post('id_doc')) {
+				$id_doc = $this->input->post('id_doc');
+			};
+			
+			$data['doc'] = $this->Inbox_model->get_doc($id_doc);
+			
+			break;
 	}
-
-public function docs_open($group)
-    {
-        echo "test";
-    }   
-
-public function docs_sorter($id)
-    {
-        echo "test";        
-    }
+	
+	
+	
+		
+	
+	$this->load->view('docs_open', $data);
+}   
+	
+public function docs_sorter($id){	
+	$this->load->view('docs_sorter', $data);        
+}
     
-public function invoice_collector($id)
-    {
-        echo "test";
-    }
+public function invoice_collector($id){
+	echo "test";
+}
 
 }  // END CONTROLLER  inbox.php
