@@ -86,9 +86,10 @@ class Inbox_model extends CI_Model  {
 		$this->db->from('doc');
 		if ($id_doc != -1) {
 			$this->db->where('doc.id_doc', $id_doc);
+		}else {
+			$this->db->where('(doc.id_car IS NULL OR doc.id_doctype IS NULL)');
 		}
 		$this->db->where('doc.deleted', 0);
-		$this->db->where('(doc.id_car IS NULL OR doc.id_doctype IS NULL)');
 		$this->db->order_by('doc.id_doc asc');
 		$query = $this->db->get();
 		
@@ -231,6 +232,52 @@ class Inbox_model extends CI_Model  {
 		
 		return $id_car;
 	}		
+	
+	function get_all_subcontractors() {
+		$data = array(
+			'-1' => 'unknown',
+		);
+		
+		$this->db->select('
+			subcontractor.id_subcontractor,
+			subcontractor.first_name,
+			subcontractor.last_name,
+		');
+		$this->db->from('subcontractor');
+		$query = $this->db->get();
+		
+		if ($query->num_rows() > 0) {
+			
+			foreach ($query->result() as $item) {
+				$data[$item->id_subcontractor] = $item->first_name.' '.$item->last_name ;
+			}
+			
+		}
+		
+		return $data;
+	}
+	
+	function set_subcontractor_car($id_doc, $input_data) {
+		$data = array( /*
+			'id_car'           => '',
+			'id_subcontractor' => '', */
+		);
+
+		
+		foreach ($input_data['sort'] as $item) {
+			if ($item['id_car'] != '-1' OR $item['bill'] != '') {
+				$data_bill['id_car']           = ($item['id_car'] != '-1') ? $item['id_car'] : NULL;
+				$data_bill['bill']             = $item['bill'];
+				$data_bill['id_doc']           = $id_doc;
+				$data_bill['id_subcontractor'] = ($input_data['id_subcontractor'] != '-1') ?$input_data['id_subcontractor'] : NULL;
+				
+				$this->db->insert('bill', $data_bill);
+				
+			}
+
+		}
+
+	}
 
 }
 

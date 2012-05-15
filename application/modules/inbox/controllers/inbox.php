@@ -55,7 +55,7 @@ public function docs_open(){
 				 * wird ein weiteres Formular angezeigt
 				 */
 				if ($id_doctype == '2' OR $id_doctype == '3' OR $id_doctype == '4') {
-					redirect('/Inbox/create_car/'.$id_doc, 'refresh');
+					redirect('/Inbox/sort_bill_car/'.$id_doc, 'refresh');
 				}
 			}
 
@@ -105,7 +105,25 @@ public function create_car($id_doc) {
 public function sort_bill_car($id_doc) {
 	$data['id_doc'] = $id_doc;
 	$data['doc'] = $this->Inbox_model->get_doc($id_doc);
+	$data['all_car'] = $this->Inbox_model->get_all_car();
+	$data['all_subcontractors'] = $this->Inbox_model->get_all_subcontractors();
 	
+	$input_data = $this->input->post();
+	
+	if (isset($input_data['sort'])) {
+		foreach ($input_data['sort']  as $key => $value) {
+			if ($value['id_car'] != '-1' OR $value['bill'] != '') {
+				$this->form_validation->set_rules('id_subcontractor', 'id_subcontractor', 'numeric');
+				$this->form_validation->set_rules('sort['.$key.'][bill]', 'sort['.$key.'][bill]', 'numeric');
+				$this->form_validation->set_rules('sort['.$key.'][id_car]', 'sort['.$key.'][id_car]');
+			}
+		}
+	}
+	
+	if ($this->form_validation->run() == TRUE) {
+		$this->Inbox_model->set_subcontractor_car($id_doc, $input_data);
+		redirect('/Inbox/docs_open/'.$id_doc, 'refresh');
+	}
 	
 	
 	$this->load->view('sort_bill_car', $data);

@@ -1,20 +1,23 @@
 <?= (isset($succes)) ? $succes : ''; ?>
-
+<!--<pre>
+<? print_r($all_subcontractors); ?>
+<? print_r($all_car); ?>
 <? print_r($doc); ?>
+</pre>-->
 
 <?php echo validation_errors(); ?>
 
 <!--nächstes Dokument-->
 <?= form_open('Inbox/sort_bill_car/'.$id_doc); ?>
+	<?= form_dropdown('id_subcontractor', $all_subcontractors, set_value('id_subcontractor')); ?>
+	<br>
+	<? for ($i = 0; $i < 10; $i++) : ?>
+		<?= form_dropdown('sort['.$i.'][id_car]', $all_car, set_value('sort['.$i.'][id_car]')); ?>
+		<?= form_input('sort['.$i.'][bill]',                set_value('sort['.$i.'][bill]')); ?>
+		<br>
+	<? endfor; ?>
 
-	Kennzeichen:     <?= form_input('registration_number', set_value('registration_number')); ?>
-	Vorname:         <?= form_input('first_name',          set_value('first_name')); ?>
-	Nachname:        <?= form_input('last_name',           set_value('last_name')); ?>
-	Strasse:         <?= form_input('street',              set_value('street')); ?>
-	Ort:             <?= form_input('city',                set_value('city')); ?>
-	Firma:           <?= form_input('company',             set_value('company')); ?>
-	Fahrgestell-Nr.: <?= form_input('vin',                 set_value('vin')); ?>
-	PLZ:             <?= form_input('zip',                 set_value('zip')); ?>
+
 
 	<?= form_hidden('id_doc', $id_doc); ?>
 	
