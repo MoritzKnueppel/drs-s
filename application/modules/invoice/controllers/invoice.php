@@ -20,6 +20,7 @@ public function invoice_new($id_car)
 //  $data['client'] zum car über invoice_model holen und an view übergeben   
 //  $data['insurance'] zum car über invoice_model holen und an view übergeben
 //  $data['car'] zum car über invoice_model holen und an view übergeben
+    $data['dummy']  = $this->invoice_model->dummy_array_invoice(); //erstmal damit entspannt View bauen. Später model-functionen erstellen
 //  View invoice_form_view in container öffnen
 //  ELSE
 //  $this->input->post() im inbox_model in $data binden und in inoice-table schreiben
