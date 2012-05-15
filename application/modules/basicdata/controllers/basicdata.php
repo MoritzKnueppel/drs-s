@@ -109,9 +109,25 @@ function subcontractor($id_subcon)
  } 
 
   
-function document_type() 
+function doctype() 
   {
-  
+    $this->grocery_crud->set_theme('datatables');
+    $this->grocery_crud->unset_delete();
+    //$this->grocery_crud->unset_edit(); 
+    $this->grocery_crud->unset_columns('deleted');
+    
+    //translation of field titles
+    $this->grocery_crud->display_as('group', 'Gruppe');
+    $this->grocery_crud->display_as('name', 'Name');
+     //end
+    
+    $this->grocery_crud->where('deleted', 'inactive');
+    
+    $output = $this->grocery_crud->render('doctype');
+    $data['view']='basicdata_view'; 
+    $data['grocery_stylesheet']=true; 
+    $this->load->vars($data);
+    $this->_example_output($output);
   }
 
 function station() 
