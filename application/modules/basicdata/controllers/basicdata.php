@@ -80,9 +80,9 @@ function insurance()
     $this->_example_output($output);
   }
   
-//folgende greifen alle auf subcontractor zu, unterscheiden in subcontractor_type
 
- function technician()
+function subcontractor($id_subcon)
+
  {
     $this->grocery_crud->set_theme('datatables');
     $this->grocery_crud->unset_delete();
@@ -99,28 +99,15 @@ function insurance()
     //end
     
     $this->grocery_crud->where('deleted', 'inactive');
+    $this->grocery_crud->where('id_subcon_type', $id_subcon);
     
-    $output = $this->grocery_crud->render('station');
+    $output = $this->grocery_crud->render('subcontractor');
     $data['view']='basicdata_view'; 
     $data['grocery_stylesheet']=true; 
     $this->load->vars($data);
     $this->_example_output($output);
  } 
- 
-function supplier()
-{
-        
-}
-  
-function monteur()
-  {
-  }
 
-  function finisher(){}
-  function painter() {}
-  
-  //   ende
-  
   
 function document_type() 
   {

@@ -1,6 +1,6 @@
 <html>
 <head>
-
+<title><?php IF(isset($title)){echo $title;} ELSE {echo "DRS";} ?></title>
 <link href="<?=base_url()?>assets/bootstrap/css/bootstrap.css" rel="stylesheet"> 
 
 <?php
