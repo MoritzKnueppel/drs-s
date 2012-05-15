@@ -51,7 +51,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = '127.0.0.1';
 $db['default']['username'] = 'drs';
-$db['default']['password'] = 'lamue2011';
+$db['default']['password'] = '12345';
 $db['default']['database'] = 'spring';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
