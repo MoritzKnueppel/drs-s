@@ -11,7 +11,7 @@ function get_station($id_station)
     {
     $this->db->where('id_station', $id_station);
     $sql    =   $this->db->get('station');
-    if($sql->num_row()>0) 
+    if($sql->num_rows()>0) 
         {
             $data = $sql->row();
         }
@@ -28,16 +28,19 @@ function dummy_array_creditnote()
                         'creditor'          =>  '70654',
                         'date'              =>  '14.06.2012',
                         'id_station'        =>  '1',
-                        'creditlines[0]'    =>  array(
-                                                    'pos'           =>  '1',
-                                                    'text'          =>  'Motorhaube',
-                                                    'discount_1'    =>  '10',
-                                                    'sum'           =>  '100'),
-                        'creditlines[1]'    =>  array(
-                                                    'pos'           =>  '2',
-                                                    'text'          =>  'Dach',
-                                                    'discount_1'    =>  '10',
-                                                    'sum'           =>  '200'),
+                        'insurance'         =>  'Generali',
+                        'creditlines'       =>  array (
+                          array(
+                                'pos'           =>  '1',
+                                'text'          =>  'Motorhaube',
+                                'discount_1'    =>  '10',
+                                'sum'           =>  '100'),
+                          array(
+                                'pos'           =>  '2',
+                                'text'          =>  'Dach',
+                                'discount_1'    =>  '10',
+                                'sum'           =>  '200'),
+                         ),
                         'net'               => '300',
                         'tax'               => '57',
                         'gross'             => '357'

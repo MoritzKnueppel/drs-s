@@ -18,9 +18,10 @@ public function index()
 public function creditnote_new()
 {
     $data['creditnote'] =   $this->creditnote_model->dummy_array_creditnote();
-    $data['station']    =   $this->creditnote_model->station_get('1');
+    $data['station']    =   $this->creditnote_model->get_station('1');
     $data['title']      =   "Neue Gutschrift";
     $data['view']       =   "creditnote_form_view";
+
     $this->load->view('container', $data);
 }
 
