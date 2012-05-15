@@ -11,7 +11,7 @@ class Inbox_model extends CI_Model  {
 	 */
 	function get_doctype() {
 		$data = array(
-			/*id_doctype => name,*/
+			'-1' => 'unknown',
 		);
 		
 		$this->db->select('
@@ -38,7 +38,7 @@ class Inbox_model extends CI_Model  {
 	 */
 	function get_all_car() {
 		$data = array(
-			/*id_doctype => name,*/
+			'-1' => 'unknown',
 		);
 		
 		$this->db->select('
@@ -65,7 +65,6 @@ class Inbox_model extends CI_Model  {
 	 * @param $id_doc : ist das aktuelle dokument, welches nicht noch einmal geholt werden soll
 	 */
 	function get_doc($id_doc=-1) {
-		echo $id_doc;
 		$data = array(
 			'id_doc'     => '',
 			'name'       => '',
@@ -88,6 +87,7 @@ class Inbox_model extends CI_Model  {
 			$this->db->where('doc.id_doc', $id_doc);
 		}
 		$this->db->where('doc.deleted', 0);
+		$this->db->where('(doc.id_car IS NULL OR doc.id_doctype IS NULL)');
 		$this->db->order_by('doc.id_doc asc');
 		$query = $this->db->get();
 		
@@ -110,6 +110,10 @@ class Inbox_model extends CI_Model  {
 			'id_doctype' => $id_doctype,
 		);
 		
+		if ($id_doctype == -1) {
+			$data['id_doctype'] = NULL;
+		}
+		
 		$this->db->where('id_doc', $id_doc);
 		$this->db->update('doc', $data); 
 	}
@@ -118,6 +122,10 @@ class Inbox_model extends CI_Model  {
 		$data = array(
 			'id_car' => $id_car,
 		);
+		
+		if ($id_car == -1) {
+			$data['id_car'] = NULL;
+		}
 		
 		$this->db->where('id_doc', $id_doc);
 		$this->db->update('doc', $data); 

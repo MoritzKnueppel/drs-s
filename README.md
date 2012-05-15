@@ -39,6 +39,7 @@ Digitale Vorgangsakte mit Rechnungs-/Gutschrifterstellung
 - Muss das nicht einem Case zugeordnet werden?
 
 #### Typen
+- Gutachter           : assessor
 - Kostenübernahme     : cost_absorption
 - Technikerrechnung   : bill_technicians
 - Montagerechnung     : monteur_bill
