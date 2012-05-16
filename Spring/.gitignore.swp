@@ -1,0 +1,6 @@
+application/config/database.php 
+*/cache/!index.html 
+*/cache/* 
+*/logs/!index.html 
+*/logs/log-*.php 
+*/config/development 

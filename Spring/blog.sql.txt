@@ -1,0 +1,17 @@
+
+CREATE TABLE IF NOT EXISTS `blog` (
+  `id_Blog` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) DEFAULT NULL,
+  `content` longtext,
+  `deleted` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id_Blog`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+
+INSERT INTO `blog` (`id_Blog`, `title`, `content`, `deleted`) VALUES
+(1, 'test nummer 1', 'dies ist test nummer 1', 0),
+(2, 'test nummer 2', 'dies ist test nummer 2', 0),
+(3, 'test nummer 3', 'dies ist test nummer 3', 0),
+(4, 'test nummer 4', 'dies ist test nummer 4', 0),
+(5, 'test nummer 5', 'dies ist test nummer 5', 0),
+(6, 'test nummer 6', 'dies ist test nummer 6', 0);
